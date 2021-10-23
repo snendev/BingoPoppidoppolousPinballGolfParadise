@@ -1,0 +1,12 @@
+# Blender MTL File: 'Golf_Ball_sale.blend'
+# Material Count: 1
+
+newmtl golfball
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Bump D:\\Blender_models_in_process\\golfball\\golfball_normal_map (2).png

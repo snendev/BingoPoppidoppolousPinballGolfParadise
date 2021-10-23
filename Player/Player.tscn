@@ -1,0 +1,99 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Player/golfball/Golf_Ball.fbx" type="PackedScene" id=1]
+[ext_resource path="res://Player/arrow_material.tres" type="Material" id=3]
+[ext_resource path="res://Player/player.gd" type="Script" id=4]
+
+[sub_resource type="PhysicsMaterial" id=1]
+friction = 2.0
+bounce = 0.2
+
+[sub_resource type="SphereShape" id=2]
+radius = 2.0
+
+[node name="Player" type="Node"]
+script = ExtResource( 4 )
+
+[node name="PreviewArrow" type="Spatial" parent="."]
+
+[node name="Body" type="Spatial" parent="PreviewArrow"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0 )
+
+[node name="body" type="CSGCylinder" parent="PreviewArrow/Body"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0 )
+radius = 0.5
+height = 6.0
+material = ExtResource( 3 )
+
+[node name="point" type="CSGCylinder" parent="PreviewArrow/Body"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7, 0 )
+radius = 2.0
+height = 3.0
+cone = true
+material = ExtResource( 3 )
+
+[node name="Ball" type="RigidBody" parent="."]
+physics_material_override = SubResource( 1 )
+gravity_scale = 5.0
+axis_lock_linear_z = true
+axis_lock_angular_z = true
+
+[node name="CollisionShape" type="CollisionShape" parent="Ball"]
+shape = SubResource( 2 )
+
+[node name="Golf_Ball" parent="Ball" instance=ExtResource( 1 )]
+transform = Transform( 1, -0.000144516, -0.000239702, 0.000143919, 0.999997, -0.00246253, 0.00024006, 0.00246249, 0.999997, 0, 0, 0 )
+
+[node name="RemoteTransform" type="RemoteTransform" parent="Ball"]
+remote_path = NodePath("../../PreviewArrow")
+update_rotation = false
+update_scale = false
+
+[node name="HUD" type="Control" parent="."]
+margin_right = 1024.0
+margin_bottom = 601.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="StrokesPanel" type="Panel" parent="HUD"]
+margin_left = 885.0
+margin_right = 1024.0
+margin_bottom = 44.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CenterContainer" type="CenterContainer" parent="HUD/StrokesPanel"]
+margin_right = 140.0
+margin_bottom = 44.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HSplitContainer" type="HSplitContainer" parent="HUD/StrokesPanel/CenterContainer"]
+margin_left = 28.0
+margin_top = 15.0
+margin_right = 111.0
+margin_bottom = 29.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="StrokesLabel" type="Label" parent="HUD/StrokesPanel/CenterContainer/HSplitContainer"]
+margin_right = 63.0
+margin_bottom = 14.0
+text = "Strokes: "
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NumStrokes" type="Label" parent="HUD/StrokesPanel/CenterContainer/HSplitContainer"]
+margin_left = 75.0
+margin_right = 83.0
+margin_bottom = 14.0
+text = "0"
+__meta__ = {
+"_edit_use_anchors_": false
+}
