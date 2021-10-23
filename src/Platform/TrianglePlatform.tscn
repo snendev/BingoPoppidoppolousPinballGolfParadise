@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Platform/wood.tres" type="Material" id=1]
+[ext_resource path="res://Platform/PlatformPhysics.tres" type="PhysicsMaterial" id=2]
+
+[sub_resource type="ConvexPolygonShape" id=1]
+points = PoolVector3Array( -55, 0, 0, 55, 0, 0, 0, -75, 0, 0, -75, -5, -55, 0, -5, 55, 0, -5 )
+
+[node name="Triangle" type="StaticBody"]
+physics_material_override = ExtResource( 2 )
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+shape = SubResource( 1 )
+
+[node name="CSGPolygon" type="CSGPolygon" parent="."]
+polygon = PoolVector2Array( 0, 0, 55, 0, 0, -75, -55, 0 )
+depth = 5.0
+material = ExtResource( 1 )

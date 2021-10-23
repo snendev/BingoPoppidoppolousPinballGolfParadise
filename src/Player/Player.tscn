@@ -1,17 +1,18 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://Player/golfball/Golf_Ball.fbx" type="PackedScene" id=1]
 [ext_resource path="res://Player/arrow_material.tres" type="Material" id=3]
 [ext_resource path="res://Player/player.gd" type="Script" id=4]
 
 [sub_resource type="PhysicsMaterial" id=1]
-friction = 2.0
 bounce = 0.2
 
 [sub_resource type="SphereShape" id=2]
 radius = 2.0
 
-[node name="Player" type="Node"]
+[sub_resource type="SpatialMaterial" id=3]
+albedo_color = Color( 0.87451, 0, 1, 1 )
+
+[node name="Player" type="Spatial"]
 script = ExtResource( 4 )
 
 [node name="PreviewArrow" type="Spatial" parent="."]
@@ -34,20 +35,22 @@ material = ExtResource( 3 )
 
 [node name="Ball" type="RigidBody" parent="."]
 physics_material_override = SubResource( 1 )
-gravity_scale = 5.0
+contacts_reported = 3
+contact_monitor = true
 axis_lock_linear_z = true
 axis_lock_angular_z = true
 
 [node name="CollisionShape" type="CollisionShape" parent="Ball"]
 shape = SubResource( 2 )
 
-[node name="Golf_Ball" parent="Ball" instance=ExtResource( 1 )]
-transform = Transform( 1, -0.000144516, -0.000239702, 0.000143919, 0.999997, -0.00246253, 0.00024006, 0.00246249, 0.999997, 0, 0, 0 )
-
 [node name="RemoteTransform" type="RemoteTransform" parent="Ball"]
 remote_path = NodePath("../../PreviewArrow")
 update_rotation = false
 update_scale = false
+
+[node name="CSGSphere" type="CSGSphere" parent="Ball"]
+radius = 2.0
+material = SubResource( 3 )
 
 [node name="HUD" type="Control" parent="."]
 margin_right = 1024.0
