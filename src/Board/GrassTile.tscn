@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Board/grass.tres" type="Material" id=1]
+
+[node name="Grass" type="CSGBox"]
+transform = Transform( 0.75, 0, 0, 0, 0.75, 0, 0, 0, 1, 24, 24, 2 )
+width = 64.0
+height = 64.0
+material = ExtResource( 1 )

@@ -1,0 +1,113 @@
+[gd_scene load_steps=16 format=2]
+
+[ext_resource path="res://Bingo/BingoSkin.tres" type="Material" id=1]
+[ext_resource path="res://Bingo/bingo.gd" type="Script" id=2]
+[ext_resource path="res://Bingo/smile.tres" type="Animation" id=3]
+[ext_resource path="res://Bingo/frown.tres" type="Animation" id=4]
+[ext_resource path="res://Bingo/tophat.glb" type="PackedScene" id=5]
+
+[sub_resource type="SpatialMaterial" id=1]
+
+[sub_resource type="SpatialMaterial" id=2]
+albedo_color = Color( 0.682353, 0.301961, 0, 1 )
+
+[sub_resource type="SpatialMaterial" id=3]
+albedo_color = Color( 0, 0, 0, 1 )
+
+[sub_resource type="SpatialMaterial" id=4]
+albedo_color = Color( 0.921569, 0.109804, 0, 1 )
+
+[sub_resource type="AnimationNodeAnimation" id=5]
+animation = "smile"
+
+[sub_resource type="AnimationNodeAnimation" id=6]
+animation = "frown"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=7]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=8]
+
+[sub_resource type="AnimationNodeStateMachine" id=9]
+states/frown/node = SubResource( 5 )
+states/frown/position = Vector2( 469, 56 )
+states/smile/node = SubResource( 6 )
+states/smile/position = Vector2( 324, 56 )
+transitions = [ "frown", "smile", SubResource( 7 ), "smile", "frown", SubResource( 8 ) ]
+start_node = "smile"
+graph_offset = Vector2( -364, -102 )
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=10]
+
+[node name="Bingo" type="Spatial"]
+script = ExtResource( 2 )
+
+[node name="tophat" parent="." instance=ExtResource( 5 )]
+transform = Transform( 0.399404, 0.0215632, -0.00339651, -0.0217963, 0.39054, -0.0836881, -0.00119528, 0.0837484, 0.391133, 0.2109, 1.50239, 0.20076 )
+
+[node name="Head" type="CSGSphere" parent="."]
+transform = Transform( 0.945519, 0, 0.325568, 0, 1, 0, -0.325568, 0, 0.945519, 0.0164828, 0.0054414, 0.000140071 )
+radial_segments = 5
+rings = 12
+material = ExtResource( 1 )
+
+[node name="LeftEye" type="CSGSphere" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.2, 0.8 )
+radius = 0.1
+rings = 12
+material = SubResource( 1 )
+
+[node name="Eyebrow" type="CSGTorus" parent="LeftEye"]
+transform = Transform( 1, 0, 0, 0, 0.414709, 0.909953, 0, -0.909953, 0.414709, 0.020697, 0.0727572, -0.112325 )
+inner_radius = 0.2
+outer_radius = 0.25
+material = SubResource( 2 )
+
+[node name="Eye" type="Spatial" parent="LeftEye"]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0 )
+
+[node name="Pupil" type="CSGSphere" parent="LeftEye/Eye"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.06 )
+radius = 0.05
+material = SubResource( 3 )
+
+[node name="RightEye" type="CSGSphere" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25, 0.2, 0.8 )
+radius = 0.1
+rings = 12
+material = SubResource( 1 )
+
+[node name="Eyebrow" type="CSGTorus" parent="RightEye"]
+transform = Transform( 1, 0, 0, 0, 0.414709, 0.909953, 0, -0.909953, 0.414709, -0.021, 0.073, -0.112 )
+inner_radius = 0.2
+outer_radius = 0.25
+material = SubResource( 2 )
+
+[node name="Eye" type="Spatial" parent="RightEye"]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0 )
+
+[node name="Pupil" type="CSGSphere" parent="RightEye/Eye"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.06 )
+radius = 0.05
+material = SubResource( 3 )
+
+[node name="Nose" type="CSGCylinder" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.8 )
+radius = 0.12
+height = 0.3
+material = ExtResource( 1 )
+
+[node name="Lips" type="CSGPolygon" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.3, 0.85 )
+polygon = PoolVector2Array( -0.3, 0.05, -0.2, -0.05, -0.05, -0.07, 0.05, -0.07, 0.2, -0.05, 0.3, 0.05, 0.15, 0.02, -0.2, 0.02 )
+depth = 0.1
+material = SubResource( 4 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/frown = ExtResource( 3 )
+anims/smile = ExtResource( 4 )
+
+[node name="AnimationTree" type="AnimationTree" parent="AnimationPlayer"]
+tree_root = SubResource( 9 )
+anim_player = NodePath("..")
+active = true
+parameters/playback = SubResource( 10 )

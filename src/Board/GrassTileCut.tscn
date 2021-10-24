@@ -1,0 +1,21 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Board/grass.tres" type="Material" id=1]
+
+[node name="GrassTile" type="Spatial"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -25, 25, 2 )
+
+[node name="CSGCombiner" type="CSGCombiner" parent="."]
+operation = 2
+
+[node name="Grass" type="CSGBox" parent="CSGCombiner"]
+transform = Transform( 0.75, 0, 0, 0, 0.75, 0, 0, 0, 1, 0, 0, 0 )
+width = 64.0
+height = 64.0
+material = ExtResource( 1 )
+
+[node name="SubtractArea" type="CSGPolygon" parent="CSGCombiner"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3 )
+operation = 2
+polygon = PoolVector2Array( -4, -24, 24, -24, 24, 24 )
+depth = 6.0

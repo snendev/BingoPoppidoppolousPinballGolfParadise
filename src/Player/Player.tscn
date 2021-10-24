@@ -1,5 +1,7 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
+[ext_resource path="res://golf-ball-icon-fill.png" type="Texture" id=1]
+[ext_resource path="res://Player/audio/golf_swing.wav" type="AudioStream" id=2]
 [ext_resource path="res://Player/arrow_material.tres" type="Material" id=3]
 [ext_resource path="res://Player/player.gd" type="Script" id=4]
 
@@ -53,37 +55,87 @@ radius = 2.0
 material = SubResource( 3 )
 
 [node name="HUD" type="Control" parent="."]
-margin_right = 1024.0
-margin_bottom = 601.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -6.00677
+margin_top = 1.18921
+margin_right = -6.00677
+margin_bottom = 1.18921
+grow_horizontal = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="StrokesPanel" type="Panel" parent="HUD"]
-margin_left = 885.0
-margin_right = 1024.0
-margin_bottom = 44.0
+[node name="HBox" type="HBoxContainer" parent="HUD"]
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -32.0
+grow_horizontal = 0
+alignment = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="CenterContainer" type="CenterContainer" parent="HUD/StrokesPanel"]
-margin_right = 140.0
-margin_bottom = 44.0
+[node name="Flex" type="Control" parent="HUD/HBox"]
+margin_left = 32.0
+margin_right = 32.0
+margin_bottom = 600.0
+
+[node name="VBox" type="VBoxContainer" parent="HUD/HBox/Flex"]
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -97.0
+size_flags_vertical = 3
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="HSplitContainer" type="HSplitContainer" parent="HUD/StrokesPanel/CenterContainer"]
-margin_left = 28.0
-margin_top = 15.0
-margin_right = 111.0
-margin_bottom = 29.0
+[node name="PanelMargin" type="MarginContainer" parent="HUD/HBox/Flex/VBox"]
+margin_right = 97.0
+margin_bottom = 28.0
+size_flags_vertical = 0
+custom_constants/margin_right = 0
+custom_constants/margin_top = 0
+custom_constants/margin_left = 0
+custom_constants/margin_bottom = 0
+
+[node name="StrokesPanel" type="Panel" parent="HUD/HBox/Flex/VBox/PanelMargin"]
+margin_right = 97.0
+margin_bottom = 28.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="StrokesLabel" type="Label" parent="HUD/StrokesPanel/CenterContainer/HSplitContainer"]
+[node name="Score" type="PanelContainer" parent="HUD/HBox/Flex/VBox/PanelMargin"]
+margin_right = 97.0
+margin_bottom = 28.0
+grow_vertical = 0
+
+[node name="CenterContainer" type="CenterContainer" parent="HUD/HBox/Flex/VBox/PanelMargin/Score"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 90.0
+margin_bottom = 21.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HSplitContainer" type="HSplitContainer" parent="HUD/HBox/Flex/VBox/PanelMargin/Score/CenterContainer"]
+margin_right = 83.0
+margin_bottom = 14.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="StrokesLabel" type="Label" parent="HUD/HBox/Flex/VBox/PanelMargin/Score/CenterContainer/HSplitContainer"]
 margin_right = 63.0
 margin_bottom = 14.0
 text = "Strokes: "
@@ -92,7 +144,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="NumStrokes" type="Label" parent="HUD/StrokesPanel/CenterContainer/HSplitContainer"]
+[node name="NumStrokes" type="Label" parent="HUD/HBox/Flex/VBox/PanelMargin/Score/CenterContainer/HSplitContainer"]
 margin_left = 75.0
 margin_right = 83.0
 margin_bottom = 14.0
@@ -100,3 +152,29 @@ text = "0"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="ProgressMargin" type="MarginContainer" parent="HUD/HBox/Flex/VBox"]
+margin_top = 32.0
+margin_right = 97.0
+margin_bottom = 600.0
+size_flags_vertical = 3
+custom_constants/margin_top = 50
+custom_constants/margin_bottom = 50
+
+[node name="ProgressSlider" type="VSlider" parent="HUD/HBox/Flex/VBox/ProgressMargin"]
+margin_top = 50.0
+margin_right = 97.0
+margin_bottom = 518.0
+size_flags_horizontal = 1
+size_flags_vertical = 3
+custom_icons/grabber_highlight = ExtResource( 1 )
+custom_icons/grabber = ExtResource( 1 )
+max_value = 1400.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Audio" type="Node" parent="."]
+
+[node name="PuttPlayer" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource( 2 )

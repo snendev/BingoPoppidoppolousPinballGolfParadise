@@ -1,29 +1,29 @@
 [gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Platform/wood.tres" type="Material" id=1]
-[ext_resource path="res://Board/grass.tres" type="Material" id=2]
 [ext_resource path="res://Board/paradise.png" type="Texture" id=3]
 [ext_resource path="res://Board/gotop.png" type="Texture" id=4]
 [ext_resource path="res://Board/WallPhysics.tres" type="PhysicsMaterial" id=5]
+[ext_resource path="res://Board/GrassTile.tscn" type="PackedScene" id=6]
 
 [sub_resource type="PhysicsMaterial" id=1]
 
-[sub_resource type="BoxShape" id=7]
+[sub_resource type="BoxShape" id=2]
 extents = Vector3( 50, 5, 5 )
 
-[sub_resource type="BoxShape" id=6]
+[sub_resource type="BoxShape" id=3]
 extents = Vector3( 5, 250, 5 )
 
-[sub_resource type="BoxShape" id=8]
+[sub_resource type="BoxShape" id=4]
 extents = Vector3( 5, 250, 5 )
 
 [sub_resource type="BoxShape" id=5]
 extents = Vector3( 5, 150, 5 )
 
-[sub_resource type="BoxShape" id=3]
+[sub_resource type="BoxShape" id=6]
 extents = Vector3( 5, 150, 5 )
 
-[sub_resource type="BoxShape" id=2]
+[sub_resource type="BoxShape" id=7]
 extents = Vector3( 100, 5, 5 )
 
 [node name="Board" type="Spatial"]
@@ -38,29 +38,265 @@ texture = ExtResource( 4 )
 
 [node name="Backboard" type="Spatial" parent="."]
 
-[node name="Lower" type="CSGBox" parent="Backboard"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 250, 0 )
-width = 100.0
-height = 500.0
-material = ExtResource( 2 )
+[node name="GrassTile" parent="Backboard" instance=ExtResource( 6 )]
+transform = Transform( 0.75, 0, 0, 0, 0.75, 0, 0, 0, 1, -24, 27, 0 )
 
-[node name="Middle" type="CSGPolygon" parent="Backboard"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000198364, 499.554, 0.114777 )
-polygon = PoolVector2Array( -50, 0, 55, 0, 140, 300, -50, 300 )
-material = ExtResource( 2 )
+[node name="GrassTile2" parent="Backboard" instance=ExtResource( 6 )]
+transform = Transform( 0.75, 0, 0, 0, 0.75, 0, 0, 0, 1, 24, 27, 0 )
 
-[node name="Top" type="CSGBox" parent="Backboard"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 40, 1010, 0 )
-width = 180.0
-height = 520.0
-material = ExtResource( 2 )
+[node name="GrassTile3" parent="Backboard" instance=ExtResource( 6 )]
+transform = Transform( 0.75, 0, 0, 0, 0.75, 0, 0, 0, 1, -24, 75, 0 )
+
+[node name="GrassTile4" parent="Backboard" instance=ExtResource( 6 )]
+transform = Transform( 0.75, 0, 0, 0, 0.75, 0, 0, 0, 1, 24, 75, 0 )
+
+[node name="GrassTile5" parent="Backboard" instance=ExtResource( 6 )]
+transform = Transform( 0.75, 0, 0, 0, 0.75, 0, 0, 0, 1, -24, 123, 0 )
+
+[node name="GrassTile6" parent="Backboard" instance=ExtResource( 6 )]
+transform = Transform( 0.75, 0, 0, 0, 0.75, 0, 0, 0, 1, 24, 123, 0 )
+
+[node name="GrassTile7" parent="Backboard" instance=ExtResource( 6 )]
+transform = Transform( 0.75, 0, 0, 0, 0.75, 0, 0, 0, 1, -24, 171, 0 )
+
+[node name="GrassTile8" parent="Backboard" instance=ExtResource( 6 )]
+transform = Transform( 0.75, 0, 0, 0, 0.75, 0, 0, 0, 1, 24, 171, 0 )
+
+[node name="GrassTile9" parent="Backboard" instance=ExtResource( 6 )]
+transform = Transform( 0.75, 0, 0, 0, 0.75, 0, 0, 0, 1, -24, 219, 0 )
+
+[node name="GrassTile10" parent="Backboard" instance=ExtResource( 6 )]
+transform = Transform( 0.75, 0, 0, 0, 0.75, 0, 0, 0, 1, 24, 219, 0 )
+
+[node name="GrassTile11" parent="Backboard" instance=ExtResource( 6 )]
+transform = Transform( 0.75, 0, 0, 0, 0.75, 0, 0, 0, 1, -24, 267, 0 )
+
+[node name="GrassTile12" parent="Backboard" instance=ExtResource( 6 )]
+transform = Transform( 0.75, 0, 0, 0, 0.75, 0, 0, 0, 1, 24, 267, 0 )
+
+[node name="GrassTile13" parent="Backboard" instance=ExtResource( 6 )]
+transform = Transform( 0.75, 0, 0, 0, 0.75, 0, 0, 0, 1, -24, 315, 0 )
+
+[node name="GrassTile14" parent="Backboard" instance=ExtResource( 6 )]
+transform = Transform( 0.75, 0, 0, 0, 0.75, 0, 0, 0, 1, 24, 315, 0 )
+
+[node name="GrassTile15" parent="Backboard" instance=ExtResource( 6 )]
+transform = Transform( 0.75, 0, 0, 0, 0.75, 0, 0, 0, 1, -24, 363, 0 )
+
+[node name="GrassTile16" parent="Backboard" instance=ExtResource( 6 )]
+transform = Transform( 0.75, 0, 0, 0, 0.75, 0, 0, 0, 1, 24, 363, 0 )
+
+[node name="GrassTile17" parent="Backboard" instance=ExtResource( 6 )]
+transform = Transform( 0.75, 0, 0, 0, 0.75, 0, 0, 0, 1, -24, 411, 0 )
+
+[node name="GrassTile18" parent="Backboard" instance=ExtResource( 6 )]
+transform = Transform( 0.75, 0, 0, 0, 0.75, 0, 0, 0, 1, 24, 411, 0 )
+
+[node name="GrassTile19" parent="Backboard" instance=ExtResource( 6 )]
+transform = Transform( 0.75, 0, 0, 0, 0.75, 0, 0, 0, 1, -24, 459, 0 )
+
+[node name="GrassTile20" parent="Backboard" instance=ExtResource( 6 )]
+transform = Transform( 0.75, 0, 0, 0, 0.75, 0, 0, 0, 1, 24, 459, 0 )
+
+[node name="GrassTile21" parent="Backboard" instance=ExtResource( 6 )]
+transform = Transform( 0.75, 0, 0, 0, 0.75, 0, 0, 0, 1, -24, 507, 0 )
+
+[node name="GrassTile22" parent="Backboard" instance=ExtResource( 6 )]
+transform = Transform( 0.75, 0, 0, 0, 0.75, 0, 0, 0, 1, 24, 507, 0 )
+
+[node name="GrassTile23" parent="Backboard" instance=ExtResource( 6 )]
+transform = Transform( 0.75, 0, 0, 0, 0.75, 0, 0, 0, 1, -24, 555, 0 )
+
+[node name="GrassTile24" parent="Backboard" instance=ExtResource( 6 )]
+transform = Transform( 0.75, 0, 0, 0, 0.75, 0, 0, 0, 1, 24, 555, 0 )
+
+[node name="GrassTile25" parent="Backboard" instance=ExtResource( 6 )]
+transform = Transform( 0.75, 0, 0, 0, 0.75, 0, 0, 0, 1, -24, 603, 0 )
+
+[node name="GrassTile26" parent="Backboard" instance=ExtResource( 6 )]
+transform = Transform( 0.75, 0, 0, 0, 0.75, 0, 0, 0, 1, 24, 603, 0 )
+
+[node name="GrassTile27" parent="Backboard" instance=ExtResource( 6 )]
+transform = Transform( 0.75, 0, 0, 0, 0.75, 0, 0, 0, 1, -24, 651, 0 )
+
+[node name="GrassTile28" parent="Backboard" instance=ExtResource( 6 )]
+transform = Transform( 0.75, 0, 0, 0, 0.75, 0, 0, 0, 1, 24, 651, 0 )
+
+[node name="GrassTile29" parent="Backboard" instance=ExtResource( 6 )]
+transform = Transform( 0.75, 0, 0, 0, 0.75, 0, 0, 0, 1, -24, 699, 0 )
+
+[node name="GrassTile30" parent="Backboard" instance=ExtResource( 6 )]
+transform = Transform( 0.75, 0, 0, 0, 0.75, 0, 0, 0, 1, 24, 699, 0 )
+
+[node name="GrassTile31" parent="Backboard" instance=ExtResource( 6 )]
+transform = Transform( 0.75, 0, 0, 0, 0.75, 0, 0, 0, 1, -24, 747, 0 )
+
+[node name="GrassTile32" parent="Backboard" instance=ExtResource( 6 )]
+transform = Transform( 0.75, 0, 0, 0, 0.75, 0, 0, 0, 1, 24, 747, 0 )
+
+[node name="GrassTile33" parent="Backboard" instance=ExtResource( 6 )]
+transform = Transform( 0.75, 0, 0, 0, 0.75, 0, 0, 0, 1, -24, 795, 0 )
+
+[node name="GrassTile34" parent="Backboard" instance=ExtResource( 6 )]
+transform = Transform( 0.75, 0, 0, 0, 0.75, 0, 0, 0, 1, 24, 795, 0 )
+
+[node name="GrassTile35" parent="Backboard" instance=ExtResource( 6 )]
+transform = Transform( 0.75, 0, 0, 0, 0.75, 0, 0, 0, 1, -24, 843, 0 )
+
+[node name="GrassTile36" parent="Backboard" instance=ExtResource( 6 )]
+transform = Transform( 0.75, 0, 0, 0, 0.75, 0, 0, 0, 1, 24, 843, 0 )
+
+[node name="GrassTile37" parent="Backboard" instance=ExtResource( 6 )]
+transform = Transform( 0.75, 0, 0, 0, 0.75, 0, 0, 0, 1, -24, 891, 0 )
+
+[node name="GrassTile38" parent="Backboard" instance=ExtResource( 6 )]
+transform = Transform( 0.75, 0, 0, 0, 0.75, 0, 0, 0, 1, 24, 891, 0 )
+
+[node name="GrassTile39" parent="Backboard" instance=ExtResource( 6 )]
+transform = Transform( 0.75, 0, 0, 0, 0.75, 0, 0, 0, 1, -24, 939, 0 )
+
+[node name="GrassTile40" parent="Backboard" instance=ExtResource( 6 )]
+transform = Transform( 0.75, 0, 0, 0, 0.75, 0, 0, 0, 1, 24, 939, 0 )
+
+[node name="GrassTile41" parent="Backboard" instance=ExtResource( 6 )]
+transform = Transform( 0.75, 0, 0, 0, 0.75, 0, 0, 0, 1, -24, 987, 0 )
+
+[node name="GrassTile42" parent="Backboard" instance=ExtResource( 6 )]
+transform = Transform( 0.75, 0, 0, 0, 0.75, 0, 0, 0, 1, 24, 987, 0 )
+
+[node name="GrassTile43" parent="Backboard" instance=ExtResource( 6 )]
+transform = Transform( 0.75, 0, 0, 0, 0.75, 0, 0, 0, 1, -24, 1035, 0 )
+
+[node name="GrassTile44" parent="Backboard" instance=ExtResource( 6 )]
+transform = Transform( 0.75, 0, 0, 0, 0.75, 0, 0, 0, 1, 24, 1035, 0 )
+
+[node name="GrassTile45" parent="Backboard" instance=ExtResource( 6 )]
+transform = Transform( 0.75, 0, 0, 0, 0.75, 0, 0, 0, 1, -24, 1083, 0 )
+
+[node name="GrassTile46" parent="Backboard" instance=ExtResource( 6 )]
+transform = Transform( 0.75, 0, 0, 0, 0.75, 0, 0, 0, 1, 24, 1083, 0 )
+
+[node name="GrassTile47" parent="Backboard" instance=ExtResource( 6 )]
+transform = Transform( 0.75, 0, 0, 0, 0.75, 0, 0, 0, 1, -24.3069, 1131, 0.00325012 )
+
+[node name="GrassTile48" parent="Backboard" instance=ExtResource( 6 )]
+transform = Transform( 0.75, 0, 0, 0, 0.75, 0, 0, 0, 1, 23.6931, 1131, 0.00325012 )
+
+[node name="GrassTile49" parent="Backboard" instance=ExtResource( 6 )]
+transform = Transform( 0.75, 0, 0, 0, 0.75, 0, 0, 0, 1, 72, 795, 0 )
+
+[node name="GrassTile51" parent="Backboard" instance=ExtResource( 6 )]
+transform = Transform( 0.75, 0, 0, 0, 0.75, 0, 0, 0, 1, 72, 843, 0 )
+
+[node name="GrassTile53" parent="Backboard" instance=ExtResource( 6 )]
+transform = Transform( 0.75, 0, 0, 0, 0.75, 0, 0, 0, 1, 72, 891, 0 )
+
+[node name="GrassTile55" parent="Backboard" instance=ExtResource( 6 )]
+transform = Transform( 0.75, 0, 0, 0, 0.75, 0, 0, 0, 1, 72, 939, 0 )
+
+[node name="GrassTile57" parent="Backboard" instance=ExtResource( 6 )]
+transform = Transform( 0.75, 0, 0, 0, 0.75, 0, 0, 0, 1, 72, 987, 0 )
+
+[node name="GrassTile59" parent="Backboard" instance=ExtResource( 6 )]
+transform = Transform( 0.75, 0, 0, 0, 0.75, 0, 0, 0, 1, 72, 1035, 0 )
+
+[node name="GrassTile61" parent="Backboard" instance=ExtResource( 6 )]
+transform = Transform( 0.75, 0, 0, 0, 0.75, 0, 0, 0, 1, 72, 1083, 0 )
+
+[node name="GrassTile63" parent="Backboard" instance=ExtResource( 6 )]
+transform = Transform( 0.75, 0, 0, 0, 0.75, 0, 0, 0, 1, 71.6931, 1131, 0.00325012 )
+
+[node name="GrassTile65" parent="Backboard" instance=ExtResource( 6 )]
+transform = Transform( 0.75, 0, 0, 0, 0.75, 0, 0, 0, 1, -24.3069, 1179, 0.00325012 )
+
+[node name="GrassTile66" parent="Backboard" instance=ExtResource( 6 )]
+transform = Transform( 0.75, 0, 0, 0, 0.75, 0, 0, 0, 1, 23.6931, 1179, 0.00325012 )
+
+[node name="GrassTile67" parent="Backboard" instance=ExtResource( 6 )]
+transform = Transform( 0.75, 0, 0, 0, 0.75, 0, 0, 0, 1, 71.6931, 1179, 0.00325012 )
+
+[node name="GrassTile69" parent="Backboard" instance=ExtResource( 6 )]
+transform = Transform( 0.75, 0, 0, 0, 0.75, 0, 0, 0, 1, -24.3069, 1227, 0.00325012 )
+
+[node name="GrassTile70" parent="Backboard" instance=ExtResource( 6 )]
+transform = Transform( 0.75, 0, 0, 0, 0.75, 0, 0, 0, 1, 23.6931, 1227, 0.00325012 )
+
+[node name="GrassTile71" parent="Backboard" instance=ExtResource( 6 )]
+transform = Transform( 0.75, 0, 0, 0, 0.75, 0, 0, 0, 1, 71.6931, 1227, 0.00325012 )
+
+[node name="GrassTile73" parent="Backboard" instance=ExtResource( 6 )]
+transform = Transform( 0.75, 0, 0, 0, 0.75, 0, 0, 0, 1, 72, 747, 0 )
+
+[node name="CSGCombiner" type="CSGCombiner" parent="Backboard"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 53, 500, 0 )
+operation = 2
+
+[node name="GrassTile64" parent="Backboard/CSGCombiner" instance=ExtResource( 6 )]
+transform = Transform( 0.75, 0, 0, 0, 0.75, 0, 0, 0, 1, 67, 631, 0 )
+
+[node name="GrassTile68" parent="Backboard/CSGCombiner" instance=ExtResource( 6 )]
+transform = Transform( 0.75, 0, 0, 0, 0.75, 0, 0, 0, 1, 67, 679, 0 )
+
+[node name="GrassTile72" parent="Backboard/CSGCombiner" instance=ExtResource( 6 )]
+transform = Transform( 0.75, 0, 0, 0, 0.75, 0, 0, 0, 1, 67, 727, 0 )
+
+[node name="GrassTile62" parent="Backboard/CSGCombiner" instance=ExtResource( 6 )]
+transform = Transform( 0.75, 0, 0, 0, 0.75, 0, 0, 0, 1, 67, 583, 0 )
+
+[node name="GrassTile60" parent="Backboard/CSGCombiner" instance=ExtResource( 6 )]
+transform = Transform( 0.75, 0, 0, 0, 0.75, 0, 0, 0, 1, 67, 535, 0 )
+
+[node name="GrassTile50" parent="Backboard/CSGCombiner" instance=ExtResource( 6 )]
+transform = Transform( 0.75, 0, 0, 0, 0.75, 0, 0, 0, 1, 67, 295, 0 )
+
+[node name="GrassTile73" parent="Backboard/CSGCombiner" instance=ExtResource( 6 )]
+transform = Transform( 0.75, 0, 0, 0, 0.75, 0, 0, 0, 1, 67, 247, 0 )
+
+[node name="GrassTile56" parent="Backboard/CSGCombiner" instance=ExtResource( 6 )]
+transform = Transform( 0.75, 0, 0, 0, 0.75, 0, 0, 0, 1, 67, 439, 0 )
+
+[node name="GrassTile54" parent="Backboard/CSGCombiner" instance=ExtResource( 6 )]
+transform = Transform( 0.75, 0, 0, 0, 0.75, 0, 0, 0, 1, 67, 391, 0 )
+
+[node name="GrassTile52" parent="Backboard/CSGCombiner" instance=ExtResource( 6 )]
+transform = Transform( 0.75, 0, 0, 0, 0.75, 0, 0, 0, 1, 67, 343, 0 )
+
+[node name="GrassTile58" parent="Backboard/CSGCombiner" instance=ExtResource( 6 )]
+transform = Transform( 0.75, 0, 0, 0, 0.75, 0, 0, 0, 1, 67, 487, 0 )
+
+[node name="GrassTile74" parent="Backboard/CSGCombiner" instance=ExtResource( 6 )]
+transform = Transform( 0.75, 0, 0, 0, 0.75, 0, 0, 0, 1, 19, 200, 0 )
+
+[node name="GrassTile75" parent="Backboard/CSGCombiner" instance=ExtResource( 6 )]
+transform = Transform( 0.75, 0, 0, 0, 0.75, 0, 0, 0, 1, 19, 152, 0 )
+
+[node name="GrassTile76" parent="Backboard/CSGCombiner" instance=ExtResource( 6 )]
+transform = Transform( 0.75, 0, 0, 0, 0.75, 0, 0, 0, 1, 67, 199, 0 )
+
+[node name="GrassTile77" parent="Backboard/CSGCombiner" instance=ExtResource( 6 )]
+transform = Transform( 0.75, 0, 0, 0, 0.75, 0, 0, 0, 1, 67, 151, 0 )
+
+[node name="GrassTile78" parent="Backboard/CSGCombiner" instance=ExtResource( 6 )]
+transform = Transform( 0.75, 0, 0, 0, 0.75, 0, 0, 0, 1, 19, 104, 0 )
+
+[node name="GrassTile79" parent="Backboard/CSGCombiner" instance=ExtResource( 6 )]
+transform = Transform( 0.75, 0, 0, 0, 0.75, 0, 0, 0, 1, 19, 56, 0 )
+
+[node name="GrassTile80" parent="Backboard/CSGCombiner" instance=ExtResource( 6 )]
+transform = Transform( 0.75, 0, 0, 0, 0.75, 0, 0, 0, 1, 19, 8, 0 )
+
+[node name="SubtractArea" type="CSGPolygon" parent="Backboard/CSGCombiner"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3 )
+operation = 2
+polygon = PoolVector2Array( 0, -20, 100, -20, 100, 272, 100, 775, 86, 775, 86, 272, 0, 0 )
+depth = 6.0
 
 [node name="Bottom" type="StaticBody" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5 )
 physics_material_override = SubResource( 1 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Bottom"]
-shape = SubResource( 7 )
+shape = SubResource( 2 )
 
 [node name="CSGBox" type="CSGBox" parent="Bottom"]
 width = 110.0
@@ -73,7 +309,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 50, 250, 5 )
 physics_material_override = ExtResource( 5 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Right Wall"]
-shape = SubResource( 6 )
+shape = SubResource( 3 )
 
 [node name="CSGBox" type="CSGBox" parent="Right Wall"]
 width = 10.0
@@ -86,7 +322,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -50, 250, 5 )
 physics_material_override = ExtResource( 5 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Left Wall"]
-shape = SubResource( 8 )
+shape = SubResource( 4 )
 
 [node name="CSGBox" type="CSGBox" parent="Left Wall"]
 width = 10.0
@@ -112,7 +348,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -50, 650, 5 )
 physics_material_override = ExtResource( 5 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Left Wall2"]
-shape = SubResource( 3 )
+shape = SubResource( 6 )
 
 [node name="CSGBox" type="CSGBox" parent="Left Wall2"]
 width = 10.0
@@ -125,7 +361,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -50, 1020, 5 )
 physics_material_override = ExtResource( 5 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Left Wall3"]
-shape = SubResource( 8 )
+shape = SubResource( 4 )
 
 [node name="CSGBox" type="CSGBox" parent="Left Wall3"]
 width = 10.0
@@ -138,7 +374,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 135, 1020, 5 )
 physics_material_override = ExtResource( 5 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Right Wall3"]
-shape = SubResource( 6 )
+shape = SubResource( 3 )
 
 [node name="CSGBox" type="CSGBox" parent="Right Wall3"]
 width = 10.0
@@ -147,11 +383,11 @@ depth = 10.0
 material = ExtResource( 1 )
 
 [node name="Top" type="StaticBody" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 43, 1265.97, 5 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 43, 1254.65, 5 )
 physics_material_override = SubResource( 1 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Top"]
-shape = SubResource( 2 )
+shape = SubResource( 7 )
 
 [node name="CSGBox" type="CSGBox" parent="Top"]
 width = 195.0
