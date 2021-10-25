@@ -52,18 +52,18 @@ func is_still():
 	return is_on_moving_floor()
 
 func is_position_improving():
-	return $Ball.global_transform.origin.y > self.last_settled_y and not self.has_worsened_this_stroke
+	return $Ball.global_transform.origin.y > self.last_settled_y and \
+			not self.has_worsened_this_stroke
 
 func handle_collide(body: Node):
 	if body.has_method("on_collide"):
 		body.on_collide()
 	if is_still():
-		if self.last_settled_y < $Ball.global_transform.origin.y:
-			# play sound
-			pass
+		print("playing...")
+		if $Ball.global_transform.origin.y > self.last_settled_y:
+			$Audio/BingoHappy.play()
 		else:
-			# play sound
-			pass
+			$Audio/BingoSad.play()
 
 func handle_win(body: Node):
 	if body == $Ball:

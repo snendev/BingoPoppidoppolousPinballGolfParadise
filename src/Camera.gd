@@ -6,6 +6,7 @@ const max_offset = 50.0
 
 const min_weight = 0.01
 const max_weight = 0.05
+const default_z = 120.0
 
 func get_drift_weight(camera_y: float, target_y: float) -> float:
 	var adjusted_offset = min((camera_y - (target_y - padding)) / max_offset, 1)
@@ -23,3 +24,10 @@ func _process(delta):
 
 	var drifted_position = lerp(camera_position, target_position, weight)
 	self.translation.y = drifted_position
+
+	if ball_node.linear_velocity.y > 20.0:
+		self.translation.z = lerp(self.translation.z, \
+			default_z + (ball_node.linear_velocity.y - 20.0) / 3.0, \
+			0.01)
+	else:
+		self.translation.z = lerp(self.translation.z, default_z, 0.03)
