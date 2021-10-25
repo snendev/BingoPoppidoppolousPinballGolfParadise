@@ -1,6 +1,6 @@
 extends Camera
 
-const camera_offset_y = 40.0
+const camera_offset_y = 20.0
 const padding = 40.0
 const max_offset = 50.0
 

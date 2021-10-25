@@ -17,6 +17,7 @@ run/main_scene="res://Root.tscn"
 
 mouse=true
 mode=false
+gravity=false
 
 [input]
 

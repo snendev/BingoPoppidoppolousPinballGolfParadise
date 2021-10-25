@@ -8,7 +8,7 @@ const arrow_size_factor = 0.05
 const min_impulse: float = 10.0
 const max_impulse: float = 100.0
 
-var strokes = 0
+export var strokes = 0
 var last_settled_y = 0
 var has_worsened_this_stroke = false
 
@@ -26,6 +26,12 @@ func execute_stroke(impulse: Vector2):
 	$HUD/HBox/Flex/VBox/PanelMargin/Score/CenterContainer/HSplitContainer/NumStrokes.text = String(strokes)
 	self.last_settled_y = $Ball.global_transform.origin.y
 	has_worsened_this_stroke = false
+
+func reset():
+	self.translation.x = 0.0
+	self.translation.y = 40.0
+	self.strokes = 0
+	$HUD/HBox/Flex/VBox/PanelMargin/Score/CenterContainer/HSplitContainer/NumStrokes.text = String(strokes)
 
 func is_on_moving_floor():
 	var is_in_contact = $Ball.contacts_reported > 0
@@ -46,7 +52,6 @@ func is_still():
 	return is_on_moving_floor()
 
 func is_position_improving():
-	print($Ball.global_transform.origin.y, " ", self.last_settled_y, " ", self.has_worsened_this_stroke)
 	return $Ball.global_transform.origin.y > self.last_settled_y and not self.has_worsened_this_stroke
 
 func handle_collide(body: Node):
@@ -60,9 +65,21 @@ func handle_collide(body: Node):
 			# play sound
 			pass
 
+func handle_win(body: Node):
+	if body == $Ball:
+		var win_card_node = get_node("/root/Root/WinCard")
+		win_card_node.visible = true
+		win_card_node.get_node("Retry").visible = true
+		if strokes > 1:
+			win_card_node.get_node("Win").visible = true
+		elif strokes == 1:
+			win_card_node.get_node("HoleIn1").visible = true
+		win_card_node.get_node("Particles").emitting = true
+
 func _ready():
 	$PreviewArrow.visible = false
 	$Ball.connect("body_entered", self, "handle_collide")
+	get_node("/root/Root/Level/Goal").connect("body_entered", self, "handle_win")
 	self.last_settled_y = $Ball.global_transform.origin.y
 
 func _input(event):

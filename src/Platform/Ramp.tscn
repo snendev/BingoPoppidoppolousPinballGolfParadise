@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Platform/wood.tres" type="Material" id=1]
+
+[sub_resource type="PhysicsMaterial" id=1]
+friction = 0.0
+
+[node name="Ramp" type="StaticBody"]
+physics_material_override = SubResource( 1 )
+constant_linear_velocity = Vector3( 1, 0, 0 )
+
+[node name="CollisionPolygon" type="CollisionPolygon" parent="."]
+polygon = PoolVector2Array( 0, -50, 9.754, -49.039, 19.134, -46.193, 27.779, -41.573, 35.355, -35.355, 41.573, -27.779, 46.193, -19.134, 49.139, -9.754, 50, 9.754, 46.193, 19.134, 41.573, 27.779, 43, 29, 48, 21, 53, 0, 48, -21, 43, -29, 29, -43, 20, -48, 0, -51 )
+
+[node name="Ramp" type="CSGPolygon" parent="."]
+polygon = PoolVector2Array( 0, -50, 9.754, -49.039, 19.134, -46.193, 27.779, -41.573, 35.355, -35.355, 41.573, -27.779, 46.193, -19.134, 49.139, -9.754, 50, 9.754, 46.193, 19.134, 41.573, 27.779, 43, 29, 48, 21, 53, 0, 48, -21, 43, -29, 29, -43, 20, -48, 0, -51 )
+material = ExtResource( 1 )
