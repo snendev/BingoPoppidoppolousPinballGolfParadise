@@ -59,7 +59,7 @@ func handle_collide(body: Node):
 	if body.has_method("on_collide"):
 		body.on_collide()
 	if is_still():
-		print("playing...")
+
 		if $Ball.global_transform.origin.y > self.last_settled_y:
 			$Audio/BingoHappy.play()
 		else:

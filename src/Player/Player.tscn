@@ -195,8 +195,8 @@ volume_db = -8.0
 
 [node name="BingoHappy" type="AudioStreamPlayer" parent="Audio"]
 stream = ExtResource( 7 )
-volume_db = 15.0
+volume_db = 10.0
 
 [node name="BingoSad" type="AudioStreamPlayer" parent="Audio"]
 stream = ExtResource( 6 )
-volume_db = 15.0
+volume_db = 10.0
