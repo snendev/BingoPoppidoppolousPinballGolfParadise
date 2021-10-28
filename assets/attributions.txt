@@ -2,6 +2,8 @@ golf ball icon - `<div>Icons made by <a href="https://www.freepik.com" title="Fr
 
 golf hole icon - `<div>Icons made by <a href="https://www.flaticon.com/authors/vitaly-gorbachev" title="Vitaly Gorbachev">Vitaly Gorbachev</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>`
 
+golf flag 3d model - https://skfb.ly/6WZzq by prorookie123 CC Attribution
+
 flipper 3d model - `"pinball flipper" (https://skfb.ly/6sTnq) by andrvalg is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).`
 
 golf sounds - https://mixkit.co/free-sound-effects/golf/
