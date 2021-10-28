@@ -94,10 +94,10 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Play" type="Button" parent="VBoxContainer/Control/VBox"]
+[node name="Continue" type="Button" parent="VBoxContainer/Control/VBox"]
 margin_right = 82.0
 margin_bottom = 20.0
-text = "Play"
+text = "Continue"
 
 [node name="NewGame" type="Button" parent="VBoxContainer/Control/VBox"]
 margin_top = 24.0

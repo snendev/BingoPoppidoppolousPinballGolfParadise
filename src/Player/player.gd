@@ -30,6 +30,7 @@ func load_game():
 	var load_file = File.new()
 	load_file.open("user://savegame.save", File.READ)
 	var node_data = parse_json(load_file.get_line())
+	self.reset()
 	self.set_strokes(node_data["strokes"])
 	self.set_best_score(node_data["best_score"])
 	$Ball.translation.x = node_data["x"]
@@ -105,7 +106,7 @@ func handle_win(body: Node):
 		elif strokes == 1:
 			win_card_node.get_node("HoleIn1").visible = true
 		win_card_node.get_node("Particles").emitting = true
-		if strokes < best_score:
+		if strokes < best_score or best_score == 0:
 			set_best_score(strokes)
 		save_game()
 

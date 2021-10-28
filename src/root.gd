@@ -1,7 +1,7 @@
 extends Node
 
 func _ready():
-	$Menu/VBoxContainer/Control/VBox/Play.connect( \
+	$Menu/VBoxContainer/Control/VBox/Continue.connect( \
 			"pressed", self, "load_or_create_game")
 	$Menu/VBoxContainer/Control/VBox/NewGame.connect( \
 			"pressed", self, "new_game")
