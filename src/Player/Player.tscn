@@ -92,30 +92,12 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="PanelMargin" type="MarginContainer" parent="HUD/HBox/Flex/VBox"]
-margin_right = 113.0
-margin_bottom = 28.0
-size_flags_vertical = 0
-custom_constants/margin_right = 0
-custom_constants/margin_top = 0
-custom_constants/margin_left = 0
-custom_constants/margin_bottom = 0
-
-[node name="StrokesPanel" type="Panel" parent="HUD/HBox/Flex/VBox/PanelMargin"]
-margin_right = 113.0
-margin_bottom = 28.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Score" type="PanelContainer" parent="HUD/HBox/Flex/VBox/PanelMargin"]
+[node name="Strokes" type="PanelContainer" parent="HUD/HBox/Flex/VBox"]
 margin_right = 113.0
 margin_bottom = 28.0
 grow_vertical = 0
 
-[node name="CenterContainer" type="CenterContainer" parent="HUD/HBox/Flex/VBox/PanelMargin/Score"]
+[node name="CenterContainer" type="CenterContainer" parent="HUD/HBox/Flex/VBox/Strokes"]
 margin_left = 7.0
 margin_top = 7.0
 margin_right = 106.0
@@ -126,7 +108,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="HSplitContainer" type="HSplitContainer" parent="HUD/HBox/Flex/VBox/PanelMargin/Score/CenterContainer"]
+[node name="HSplitContainer" type="HSplitContainer" parent="HUD/HBox/Flex/VBox/Strokes/CenterContainer"]
 margin_left = 8.0
 margin_right = 91.0
 margin_bottom = 14.0
@@ -134,7 +116,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="StrokesLabel" type="Label" parent="HUD/HBox/Flex/VBox/PanelMargin/Score/CenterContainer/HSplitContainer"]
+[node name="StrokesLabel" type="Label" parent="HUD/HBox/Flex/VBox/Strokes/CenterContainer/HSplitContainer"]
 margin_right = 63.0
 margin_bottom = 14.0
 text = "Strokes: "
@@ -143,7 +125,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="NumStrokes" type="Label" parent="HUD/HBox/Flex/VBox/PanelMargin/Score/CenterContainer/HSplitContainer"]
+[node name="NumStrokes" type="Label" parent="HUD/HBox/Flex/VBox/Strokes/CenterContainer/HSplitContainer"]
 margin_left = 75.0
 margin_right = 83.0
 margin_bottom = 14.0
@@ -155,8 +137,60 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ProgressMargin" type="MarginContainer" parent="HUD/HBox/Flex/VBox"]
+[node name="Best" type="PanelContainer" parent="HUD/HBox/Flex/VBox"]
 margin_top = 32.0
+margin_right = 113.0
+margin_bottom = 60.0
+grow_vertical = 0
+
+[node name="CenterContainer" type="CenterContainer" parent="HUD/HBox/Flex/VBox/Best"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 106.0
+margin_bottom = 21.0
+size_flags_horizontal = 3
+size_flags_vertical = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HSplitContainer" type="HSplitContainer" parent="HUD/HBox/Flex/VBox/Best/CenterContainer"]
+margin_left = 20.0
+margin_right = 78.0
+margin_bottom = 14.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BestLabel" type="Label" parent="HUD/HBox/Flex/VBox/Best/CenterContainer/HSplitContainer"]
+margin_right = 38.0
+margin_bottom = 14.0
+text = "BEST: "
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BestScore" type="Label" parent="HUD/HBox/Flex/VBox/Best/CenterContainer/HSplitContainer"]
+margin_left = 50.0
+margin_right = 58.0
+margin_bottom = 14.0
+grow_horizontal = 0
+size_flags_horizontal = 3
+text = "0"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CenterContainer2" type="CenterContainer" parent="HUD/HBox/Flex/VBox/Best"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 106.0
+margin_bottom = 21.0
+
+[node name="ProgressMargin" type="MarginContainer" parent="HUD/HBox/Flex/VBox"]
+margin_top = 64.0
 margin_right = 113.0
 margin_bottom = 600.0
 size_flags_vertical = 3
@@ -166,7 +200,7 @@ custom_constants/margin_bottom = 50
 [node name="ProgressSlider" type="VSlider" parent="HUD/HBox/Flex/VBox/ProgressMargin"]
 margin_top = 50.0
 margin_right = 113.0
-margin_bottom = 518.0
+margin_bottom = 486.0
 size_flags_horizontal = 1
 size_flags_vertical = 3
 custom_icons/grabber_highlight = ExtResource( 1 )
@@ -180,7 +214,7 @@ __meta__ = {
 [node name="Control" type="Control" parent="HUD/HBox/Flex/VBox/ProgressMargin"]
 margin_top = 50.0
 margin_right = 113.0
-margin_bottom = 518.0
+margin_bottom = 486.0
 
 [node name="Sprite" type="Sprite" parent="HUD/HBox/Flex/VBox/ProgressMargin/Control"]
 position = Vector2( 55.4648, 50.2842 )

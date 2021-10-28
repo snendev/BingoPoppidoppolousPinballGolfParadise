@@ -3,8 +3,8 @@ extends Spatial
 const X_SCALE_FACTOR: float = 0.9
 const X_OFFSET: float = 90.0
 
-onready var player_node = get_node("/root/Root/Player")
-onready var ball_node = get_node("/root/Root/Player/Ball")
+onready var player_node = get_node("/root/Root/Game/Player")
+onready var ball_node = get_node("/root/Root/Game/Player/Ball")
 
 export var DRIFT_SIZE = 4.0
 

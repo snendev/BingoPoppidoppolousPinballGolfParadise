@@ -1,0 +1,557 @@
+[gd_scene load_steps=30 format=2]
+
+[ext_resource path="res://Camera.gd" type="Script" id=1]
+[ext_resource path="res://restart.gd" type="Script" id=2]
+[ext_resource path="res://Platform/BouncyPlatformPhysics.tres" type="PhysicsMaterial" id=3]
+[ext_resource path="res://Flag/Flag.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Board/Board.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Player/Flipper/Flipper.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Platform/Ramp.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Player/Player.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Bingo/Bingo.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Platform/TrianglePlatform.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Bumper/Bumper.tscn" type="PackedScene" id=11]
+[ext_resource path="res://Platform/Platform.tscn" type="PackedScene" id=12]
+[ext_resource path="res://Platform/MovingPlatform.tscn" type="PackedScene" id=13]
+[ext_resource path="res://automover.gd" type="Script" id=14]
+[ext_resource path="res://WinScreen/winscreen.png" type="Texture" id=15]
+[ext_resource path="res://WinScreen/holein1.png" type="Texture" id=17]
+
+[sub_resource type="ProceduralSky" id=1]
+ground_bottom_color = Color( 0.172549, 0.454902, 0.27451, 1 )
+ground_horizon_color = Color( 0.603922, 0.733333, 0.8, 1 )
+
+[sub_resource type="Environment" id=2]
+background_mode = 2
+background_sky = SubResource( 1 )
+ambient_light_color = Color( 1, 1, 1, 1 )
+
+[sub_resource type="SpatialMaterial" id=3]
+albedo_color = Color( 0.47451, 0, 0.513726, 1 )
+
+[sub_resource type="Gradient" id=4]
+offsets = PoolRealArray( 0, 0, 0, 0.541237, 1 )
+colors = PoolColorArray( 0.890196, 0, 0, 1, 0, 0.607843, 0.0627451, 1, 0, 0.12549, 0.796078, 1, 0.4687, 0.535373, 0.891657, 1, 0.865979, 0.882798, 0.97267, 1 )
+
+[sub_resource type="GradientTexture" id=5]
+gradient = SubResource( 4 )
+
+[sub_resource type="Gradient" id=6]
+offsets = PoolRealArray( 0, 0.4825, 1 )
+colors = PoolColorArray( 0.741176, 0.0352941, 0.0352941, 1, 0.0196078, 0.466667, 0, 1, 0.00392157, 0.521569, 0.552941, 1 )
+
+[sub_resource type="GradientTexture" id=7]
+gradient = SubResource( 6 )
+
+[sub_resource type="Curve" id=8]
+_data = [ Vector2( 0, 0 ), 0.0, 0.0, 0, 0, Vector2( 1, 0.111364 ), 0.128099, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=9]
+curve = SubResource( 8 )
+
+[sub_resource type="ParticlesMaterial" id=10]
+lifetime_randomness = 0.46
+trail_size_modifier = SubResource( 9 )
+trail_color_modifier = SubResource( 7 )
+flag_disable_z = true
+direction = Vector3( 0, 0, 0 )
+spread = 180.0
+flatness = 0.36
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 10.0
+initial_velocity_random = 1.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+color_ramp = SubResource( 5 )
+
+[sub_resource type="PrismMesh" id=11]
+size = Vector3( 0.1, 0.1, 0.05 )
+
+[sub_resource type="SpatialMaterial" id=12]
+albedo_color = Color( 0.188235, 0.0509804, 0, 1 )
+
+[sub_resource type="BoxShape" id=13]
+extents = Vector3( 1, 3, 6 )
+
+[node name="Game" type="Spatial"]
+
+[node name="BingoContainer" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -92.207, 18.9266, -0.390671 )
+
+[node name="Bingo" parent="BingoContainer" instance=ExtResource( 9 )]
+transform = Transform( 12.7273, 0.142417, 12.7279, 0.928677, 19.9353, -1.10931, -12.6946, 1.60115, 12.6795, 0, 0, 0 )
+
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( 1, 0, 0, 0, 0.996195, -0.0871557, 0, 0.0871557, 0.996195, 0, 20, 120 )
+far = 200.0
+script = ExtResource( 1 )
+
+[node name="BingoRemoteTransform" type="RemoteTransform" parent="Camera"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -92.207, -11.562, -119.839 )
+remote_path = NodePath("../../BingoContainer")
+update_rotation = false
+update_scale = false
+
+[node name="WinCardRemoteTransform" type="RemoteTransform" parent="Camera"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -8 )
+remote_path = NodePath("../../WinCard")
+update_rotation = false
+update_scale = false
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 2 )
+
+[node name="Player" parent="." instance=ExtResource( 8 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 40, 1.5 )
+
+[node name="WinCard" type="CSGBox" parent="."]
+transform = Transform( 1, 0, 0, 0, 0.996195, -0.0871557, 0, 0.0871557, 0.996195, 0, 20.6972, 112.03 )
+visible = false
+width = 5.0
+height = 5.0
+depth = 1.0
+material = SubResource( 3 )
+
+[node name="Particles" type="Particles" parent="WinCard"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2 )
+amount = 196
+lifetime = 2.19
+process_material = SubResource( 10 )
+draw_pass_1 = SubResource( 11 )
+
+[node name="Back" type="CSGBox" parent="WinCard"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.149384, -1.70749 )
+width = 7.0
+height = 7.0
+depth = 1.0
+material = SubResource( 12 )
+
+[node name="HoleIn1" type="Sprite3D" parent="WinCard"]
+transform = Transform( 0.25, 0, 0, 0, 0.25, 0, 0, 0, 1, 0, 0, 2.005 )
+visible = false
+texture = ExtResource( 17 )
+
+[node name="Win" type="Sprite3D" parent="WinCard"]
+transform = Transform( 0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0, 2 )
+visible = false
+texture = ExtResource( 15 )
+
+[node name="Retry" type="MarginContainer" parent="WinCard"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -41.5
+margin_top = -20.0
+margin_right = 41.5
+margin_bottom = 20.0
+custom_constants/margin_top = 80
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Button" parent="WinCard/Retry"]
+margin_top = 80.0
+margin_right = 83.0
+margin_bottom = 100.0
+text = "Play Again?"
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Level" type="Spatial" parent="."]
+
+[node name="Board" parent="Level" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4 )
+
+[node name="Flipper" parent="Level" instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -46, 60, 0 )
+
+[node name="Flipper11" parent="Level" instance=ExtResource( 6 )]
+transform = Transform( -1, 0, 0, 0, 1, 0, 0, 0, 1, 46, 60, 0 )
+
+[node name="Flipper2" parent="Level" instance=ExtResource( 6 )]
+transform = Transform( -1, 0, 0, 0, 1, 0, 0, 0, 1, 33.696, 209.627, 0 )
+
+[node name="Flipper3" parent="Level" instance=ExtResource( 6 )]
+transform = Transform( -0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 30, 360, 2 )
+
+[node name="Flipper5" parent="Level" instance=ExtResource( 6 )]
+transform = Transform( -1, 0, 0, 0, 1, 0, 0, 0, 1, 67.5647, 543.053, 0 )
+
+[node name="Flipper7" parent="Level" instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -46.232, 339.374, 0 )
+
+[node name="Flipper4" parent="Level" instance=ExtResource( 6 )]
+transform = Transform( 0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 7.80002, 504.211, 0 )
+
+[node name="Flipper9" parent="Level" instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 880.675, 0 )
+
+[node name="Flipper8" parent="Level" instance=ExtResource( 6 )]
+transform = Transform( 0.8, 0, 0, 0, 0.8, 0, 0, 0, 1, -49, 425.328, 2 )
+
+[node name="Flipper6" parent="Level" instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.78779, 734.396, 0 )
+
+[node name="Flipper10" parent="Level" instance=ExtResource( 6 )]
+transform = Transform( -1, 0, 0, 0, 1, 0, 0, 0, 1, 73, 880.675, 0 )
+
+[node name="Rotator" type="Spatial" parent="Level"]
+transform = Transform( -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, -15, 248, 2 )
+
+[node name="Flipper12" parent="Level/Rotator" instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+
+[node name="Rotator2" type="Spatial" parent="Level"]
+transform = Transform( -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0, 730.455, 2 )
+
+[node name="Flipper8" parent="Level/Rotator2" instance=ExtResource( 6 )]
+transform = Transform( 1.3, 0, 0, 0, 1.3, 0, 0, 0, 1, 5.20483, 10.0068, 0 )
+
+[node name="Rotator3" type="Spatial" parent="Level"]
+transform = Transform( -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0, 459.304, 2 )
+
+[node name="Flipper3" parent="Level/Rotator3" instance=ExtResource( 6 )]
+transform = Transform( 0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, 0, 0 )
+
+[node name="Flipper12" parent="Level" instance=ExtResource( 6 )]
+transform = Transform( 1.2, 0, 0, 0, 1.2, 0, 0, 0, 1.2, -47.4749, 996.391, 0 )
+
+[node name="Flipper13" parent="Level" instance=ExtResource( 6 )]
+transform = Transform( -1.2, 0, 0, 0, 1.2, -8.74228e-08, 0, 1.04907e-07, 1, 118, 996.391, 0 )
+
+[node name="Mover" type="Spatial" parent="Level"]
+transform = Transform( -1.2, 0, 0, 0, 1.2, -8.74228e-08, 0, 1.04907e-07, 1, 118, 1075.52, 0 )
+script = ExtResource( 14 )
+MIN_RIGHT_X = -10.0
+MAX_RIGHT_X = 120.0
+SPEED = 15.0
+REVERSE = true
+
+[node name="Flipper11" parent="Level/Mover" instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 7.10543e-15, 0, 0, 1, 0, 0, 0 )
+
+[node name="Platform3" parent="Level" instance=ExtResource( 12 )]
+transform = Transform( 0.15, 0, 0, 0, 0.3, 0, 0, 0, 1, 16.3718, 167.627, 2 )
+
+[node name="Platform4" parent="Level" instance=ExtResource( 12 )]
+transform = Transform( 0.2, 0, 0, 0, 0.3, 0, 0, 0, 1, -25.269, 292.748, 2 )
+
+[node name="Platform5" parent="Level" instance=ExtResource( 12 )]
+transform = Transform( 0.2, 0, 0, 0, 0.3, 0, 0, 0, 1, -37.6949, 241.93, 1.96459 )
+
+[node name="Platform10" parent="Level" instance=ExtResource( 12 )]
+transform = Transform( 0.142944, 0.0909305, 0, -0.0454653, 0.285887, 0, 0, 0, 1, 39.8743, 438.719, 2 )
+
+[node name="Triangle" parent="Level" instance=ExtResource( 10 )]
+transform = Transform( 0.18, 0, 0, 0, 0.18, 0, 0, 0, 1, -11.1138, 345.97, 2 )
+
+[node name="Platform6" parent="Level" instance=ExtResource( 12 )]
+transform = Transform( 0.1, 0, 0, 0, 0.3, 0, 0, 0, 1, -18.9923, 137.101, 2 )
+
+[node name="BumperCluster" type="Spatial" parent="Level"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -21.9936, 195.569, 0 )
+
+[node name="Bumper" parent="Level/BumperCluster" instance=ExtResource( 11 )]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 1, -6.25, -4, 1 )
+
+[node name="Bumper2" parent="Level/BumperCluster" instance=ExtResource( 11 )]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 1, 6.25, -4, 1 )
+
+[node name="Bumper3" parent="Level/BumperCluster" instance=ExtResource( 11 )]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 1, 0, 6, 1 )
+
+[node name="BigBumperCluster" type="Spatial" parent="Level"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 480, 0 )
+
+[node name="BumperCluster3" type="Spatial" parent="Level/BigBumperCluster"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -13, -5, 0 )
+
+[node name="Bumper" parent="Level/BigBumperCluster/BumperCluster3" instance=ExtResource( 11 )]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 1, -6.25, -4, 1 )
+
+[node name="Bumper2" parent="Level/BigBumperCluster/BumperCluster3" instance=ExtResource( 11 )]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 1, 6.25, -4, 1 )
+
+[node name="Bumper3" parent="Level/BigBumperCluster/BumperCluster3" instance=ExtResource( 11 )]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 1, 0, 6, 1 )
+
+[node name="BumperCluster4" type="Spatial" parent="Level/BigBumperCluster"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 13, -5, 0 )
+
+[node name="Bumper" parent="Level/BigBumperCluster/BumperCluster4" instance=ExtResource( 11 )]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 1, -6.25, -4, 1 )
+
+[node name="Bumper2" parent="Level/BigBumperCluster/BumperCluster4" instance=ExtResource( 11 )]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 1, 6.25, -4, 1 )
+
+[node name="Bumper3" parent="Level/BigBumperCluster/BumperCluster4" instance=ExtResource( 11 )]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 1, 0, 6, 1 )
+
+[node name="BumperCluster5" type="Spatial" parent="Level/BigBumperCluster"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 14, 0 )
+
+[node name="Bumper" parent="Level/BigBumperCluster/BumperCluster5" instance=ExtResource( 11 )]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 1, -6.25, -4, 1 )
+
+[node name="Bumper2" parent="Level/BigBumperCluster/BumperCluster5" instance=ExtResource( 11 )]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 1, 6.25, -4, 1 )
+
+[node name="Bumper3" parent="Level/BigBumperCluster/BumperCluster5" instance=ExtResource( 11 )]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 1, 0, 6, 1 )
+
+[node name="Bumper" parent="Level/BigBumperCluster" instance=ExtResource( 11 )]
+transform = Transform( 4, 0, 0, 0, 4, 0, 0, 0, 1, 0, 0, 2 )
+
+[node name="BumperCluster7" type="Spatial" parent="Level"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -21.9936, 588.301, 0 )
+
+[node name="Bumper" parent="Level/BumperCluster7" instance=ExtResource( 11 )]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 1, -6.25, -4, 1 )
+
+[node name="Bumper2" parent="Level/BumperCluster7" instance=ExtResource( 11 )]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 1, 6.25, -4, 1 )
+
+[node name="Bumper3" parent="Level/BumperCluster7" instance=ExtResource( 11 )]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 1, 0, 6, 1 )
+
+[node name="BumperCluster8" type="Spatial" parent="Level"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6.25119, 588.301, 0 )
+
+[node name="Bumper" parent="Level/BumperCluster8" instance=ExtResource( 11 )]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 1, -6.25, -4, 1 )
+
+[node name="Bumper2" parent="Level/BumperCluster8" instance=ExtResource( 11 )]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 1, 6.25, -4, 1 )
+
+[node name="Bumper3" parent="Level/BumperCluster8" instance=ExtResource( 11 )]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 1, 0, 6, 1 )
+
+[node name="BumperCluster9" type="Spatial" parent="Level"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 87.9115, 746.678, 0 )
+
+[node name="Bumper" parent="Level/BumperCluster9" instance=ExtResource( 11 )]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 1, -6.25, -4, 1 )
+
+[node name="Bumper2" parent="Level/BumperCluster9" instance=ExtResource( 11 )]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 1, 6.25, -4, 1 )
+
+[node name="Bumper3" parent="Level/BumperCluster9" instance=ExtResource( 11 )]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 1, 0, 6, 1 )
+
+[node name="BumperCluster10" type="Spatial" parent="Level"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 54, 642.928, 0 )
+
+[node name="Bumper" parent="Level/BumperCluster10" instance=ExtResource( 11 )]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 1, -6.25, -4, 1 )
+
+[node name="Bumper2" parent="Level/BumperCluster10" instance=ExtResource( 11 )]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 1, 6.25, -4, 1 )
+
+[node name="Bumper3" parent="Level/BumperCluster10" instance=ExtResource( 11 )]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 1, 0, 6, 1 )
+
+[node name="BumperCluster11" type="Spatial" parent="Level"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -31.9347, 751.405, 0 )
+
+[node name="Bumper" parent="Level/BumperCluster11" instance=ExtResource( 11 )]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 1, -6.25, -4, 1 )
+
+[node name="Bumper2" parent="Level/BumperCluster11" instance=ExtResource( 11 )]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 1, 6.25, -4, 1 )
+
+[node name="Bumper3" parent="Level/BumperCluster11" instance=ExtResource( 11 )]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 1, 0, 6, 1 )
+
+[node name="BigBumper" parent="Level" instance=ExtResource( 11 )]
+transform = Transform( 4, 0, 0, 0, 4, 0, 0, 0, 1, 20.6928, 286.11, 2 )
+
+[node name="Triangle2" parent="Level" instance=ExtResource( 10 )]
+transform = Transform( 0.18371, -0.0711549, 0, 0.079061, 0.165339, 0, 0, 0, 1, -42.8032, 698.087, 2.09681 )
+
+[node name="Triangle3" parent="Level" instance=ExtResource( 10 )]
+transform = Transform( -0.218642, -0.0713831, 0, 0.0713831, -0.218642, 0, 0, 0, 1, 68.8506, 685.603, 2.09681 )
+physics_material_override = ExtResource( 3 )
+
+[node name="MovingPlatform" parent="Level" instance=ExtResource( 13 )]
+transform = Transform( 0.2, 0, 0, 0, 0.3, 0, 0, 0, 1, 10.2259, 780, 0 )
+MIN_RIGHT_X = -10.0
+MAX_RIGHT_X = 90.0
+SPEED = 15.0
+REVERSE = true
+
+[node name="BigBumperCluster2" type="Spatial" parent="Level"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.1357, 843.575, 0 )
+
+[node name="BumperCluster3" type="Spatial" parent="Level/BigBumperCluster2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -13, -5, 0 )
+
+[node name="Bumper" parent="Level/BigBumperCluster2/BumperCluster3" instance=ExtResource( 11 )]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 1, -6.25, -4, 1 )
+
+[node name="Bumper2" parent="Level/BigBumperCluster2/BumperCluster3" instance=ExtResource( 11 )]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 1, 6.25, -4, 1 )
+
+[node name="Bumper3" parent="Level/BigBumperCluster2/BumperCluster3" instance=ExtResource( 11 )]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 1, 0, 6, 1 )
+
+[node name="BumperCluster4" type="Spatial" parent="Level/BigBumperCluster2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 13, -5, 0 )
+
+[node name="Bumper" parent="Level/BigBumperCluster2/BumperCluster4" instance=ExtResource( 11 )]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 1, -6.25, -4, 1 )
+
+[node name="Bumper2" parent="Level/BigBumperCluster2/BumperCluster4" instance=ExtResource( 11 )]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 1, 6.25, -4, 1 )
+
+[node name="Bumper3" parent="Level/BigBumperCluster2/BumperCluster4" instance=ExtResource( 11 )]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 1, 0, 6, 1 )
+
+[node name="BumperCluster5" type="Spatial" parent="Level/BigBumperCluster2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 14, 0 )
+
+[node name="Bumper" parent="Level/BigBumperCluster2/BumperCluster5" instance=ExtResource( 11 )]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 1, -6.25, -4, 1 )
+
+[node name="Bumper2" parent="Level/BigBumperCluster2/BumperCluster5" instance=ExtResource( 11 )]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 1, 6.25, -4, 1 )
+
+[node name="Bumper3" parent="Level/BigBumperCluster2/BumperCluster5" instance=ExtResource( 11 )]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 1, 0, 6, 1 )
+
+[node name="Bumper" parent="Level/BigBumperCluster2" instance=ExtResource( 11 )]
+transform = Transform( 4, 0, 0, 0, 4, 0, 0, 0, 1, 0, 0, 2 )
+
+[node name="BigBumperCluster3" type="Spatial" parent="Level"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 73.6371, 843.575, 0 )
+
+[node name="BumperCluster3" type="Spatial" parent="Level/BigBumperCluster3"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -13, -5, 0 )
+
+[node name="Bumper" parent="Level/BigBumperCluster3/BumperCluster3" instance=ExtResource( 11 )]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 1, -6.25, -4, 1 )
+
+[node name="Bumper2" parent="Level/BigBumperCluster3/BumperCluster3" instance=ExtResource( 11 )]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 1, 6.25, -4, 1 )
+
+[node name="Bumper3" parent="Level/BigBumperCluster3/BumperCluster3" instance=ExtResource( 11 )]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 1, 0, 6, 1 )
+
+[node name="BumperCluster4" type="Spatial" parent="Level/BigBumperCluster3"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 13, -5, 0 )
+
+[node name="Bumper" parent="Level/BigBumperCluster3/BumperCluster4" instance=ExtResource( 11 )]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 1, -6.25, -4, 1 )
+
+[node name="Bumper2" parent="Level/BigBumperCluster3/BumperCluster4" instance=ExtResource( 11 )]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 1, 6.25, -4, 1 )
+
+[node name="Bumper3" parent="Level/BigBumperCluster3/BumperCluster4" instance=ExtResource( 11 )]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 1, 0, 6, 1 )
+
+[node name="BumperCluster5" type="Spatial" parent="Level/BigBumperCluster3"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 14, 0 )
+
+[node name="Bumper" parent="Level/BigBumperCluster3/BumperCluster5" instance=ExtResource( 11 )]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 1, -6.25, -4, 1 )
+
+[node name="Bumper2" parent="Level/BigBumperCluster3/BumperCluster5" instance=ExtResource( 11 )]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 1, 6.25, -4, 1 )
+
+[node name="Bumper3" parent="Level/BigBumperCluster3/BumperCluster5" instance=ExtResource( 11 )]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 1, 0, 6, 1 )
+
+[node name="Bumper" parent="Level/BigBumperCluster3" instance=ExtResource( 11 )]
+transform = Transform( 4, 0, 0, 0, 4, 0, 0, 0, 1, 0, 0, 2 )
+
+[node name="MovingPlatform2" parent="Level" instance=ExtResource( 13 )]
+transform = Transform( 0.2, 0, 0, 0, 0.3, 0, 0, 0, 1, 62.1318, 798.662, 0 )
+MIN_RIGHT_X = -10.0
+MAX_RIGHT_X = 90.0
+SPEED = 15.0
+
+[node name="MovingBigBumperCluster" type="Spatial" parent="Level"]
+transform = Transform( 4, 0, 0, 0, 4, 0, 0, 0, 1, 0, 931.54, 2 )
+script = ExtResource( 14 )
+MIN_RIGHT_X = -15.0
+MAX_RIGHT_X = 20.0
+REVERSE = true
+
+[node name="Bumper" parent="Level/MovingBigBumperCluster" instance=ExtResource( 11 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+
+[node name="Bumper2" parent="Level/MovingBigBumperCluster" instance=ExtResource( 11 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 0 )
+
+[node name="Bumper3" parent="Level/MovingBigBumperCluster" instance=ExtResource( 11 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 0 )
+
+[node name="MovingBigBumperCluster2" type="Spatial" parent="Level"]
+transform = Transform( 4, 0, 0, 0, 4, 0, 0, 0, 1, 80, 931.54, 2 )
+script = ExtResource( 14 )
+MIN_RIGHT_X = 65.0
+MAX_RIGHT_X = 100.0
+
+[node name="Bumper" parent="Level/MovingBigBumperCluster2" instance=ExtResource( 11 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+
+[node name="Bumper2" parent="Level/MovingBigBumperCluster2" instance=ExtResource( 11 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 0 )
+
+[node name="Bumper3" parent="Level/MovingBigBumperCluster2" instance=ExtResource( 11 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 0 )
+
+[node name="MovingBigBumperCluster3" type="Spatial" parent="Level"]
+transform = Transform( 4, 0, 0, 0, 4, 0, 0, 0, 1, 20, 951.58, 2 )
+script = ExtResource( 14 )
+MIN_RIGHT_X = -15.0
+MAX_RIGHT_X = 20.0
+REVERSE = true
+
+[node name="Bumper" parent="Level/MovingBigBumperCluster3" instance=ExtResource( 11 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+
+[node name="Bumper2" parent="Level/MovingBigBumperCluster3" instance=ExtResource( 11 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 0 )
+
+[node name="Bumper3" parent="Level/MovingBigBumperCluster3" instance=ExtResource( 11 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 0 )
+
+[node name="MovingBigBumperCluster4" type="Spatial" parent="Level"]
+transform = Transform( 4, 0, 0, 0, 4, 0, 0, 0, 1, 65, 951.58, 2 )
+script = ExtResource( 14 )
+MIN_RIGHT_X = 65.0
+MAX_RIGHT_X = 100.0
+
+[node name="Bumper" parent="Level/MovingBigBumperCluster4" instance=ExtResource( 11 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+
+[node name="Bumper2" parent="Level/MovingBigBumperCluster4" instance=ExtResource( 11 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 0 )
+
+[node name="Bumper3" parent="Level/MovingBigBumperCluster4" instance=ExtResource( 11 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 0 )
+
+[node name="Ramp" parent="Level" instance=ExtResource( 7 )]
+transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 46.073, 1166.9, 0 )
+
+[node name="Ramp2" parent="Level" instance=ExtResource( 7 )]
+transform = Transform( -4.37114e-08, 1, 0, 1, 4.37114e-08, 0, 0, 0, 1, 46.073, 1146.13, 0 )
+
+[node name="Triangle4" parent="Level" instance=ExtResource( 10 )]
+transform = Transform( 0.4, 0, 0, 0, 0.3, 0, 0, 0, 1, 45.057, 1170.38, 2 )
+
+[node name="Goal" type="Area" parent="Level"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 44.9576, 1170.38, 0 )
+gravity_vec = Vector3( 0, 0, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Level/Goal"]
+shape = SubResource( 13 )
+
+[node name="Flag" parent="Level/Goal" instance=ExtResource( 4 )]
+transform = Transform( 0.00195557, 0, 0.00167681, 0, 0.003, 0, -0.000419203, 0, 0.0078223, 0, 0, 0 )
+
+[connection signal="pressed" from="WinCard/Retry/Button" to="WinCard/Retry/Button" method="_pressed"]

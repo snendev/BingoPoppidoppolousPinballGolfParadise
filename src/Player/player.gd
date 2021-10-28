@@ -9,8 +9,32 @@ const min_impulse: float = 10.0
 const max_impulse: float = 100.0
 
 export var strokes = 0
+var best_score = 0
+
 var last_settled_y = 0
 var has_worsened_this_stroke = false
+
+func save_game():
+	var save_file = File.new()
+	save_file.open("user://savegame.save", File.WRITE)
+	var save_data = {
+		"x": $Ball.translation.x,
+		"y": $Ball.translation.y,
+		"strokes": strokes,
+		"best_score": best_score
+	}
+	save_file.store_line(to_json(save_data))
+	save_file.close()
+
+func load_game():
+	var load_file = File.new()
+	load_file.open("user://savegame.save", File.READ)
+	var node_data = parse_json(load_file.get_line())
+	self.set_strokes(node_data["strokes"])
+	self.set_best_score(node_data["best_score"])
+	$Ball.translation.x = node_data["x"]
+	$Ball.translation.y = node_data["y"]
+	load_file.close()
 
 func calculate_impulse(target: Vector2, origin: Vector2) -> Vector2:
 	var delta = (target - origin) * mouse_viewport_factor
@@ -19,19 +43,25 @@ func calculate_impulse(target: Vector2, origin: Vector2) -> Vector2:
 	else:
 		return delta.clamped(max_impulse)
 
+func set_strokes(value):
+	self.strokes = value
+	$HUD/HBox/Flex/VBox/Strokes/CenterContainer/HSplitContainer/NumStrokes.text = String(value)
+
+func set_best_score(value):
+	self.best_score = value
+	$HUD/HBox/Flex/VBox/Best/CenterContainer/HSplitContainer/BestScore.text = String(value)
+
 func execute_stroke(impulse: Vector2):
 	$Ball.apply_central_impulse(Vector3(-impulse.x, impulse.y, 0))
 	$Audio/PuttPlayer.play()
-	strokes += 1
-	$HUD/HBox/Flex/VBox/PanelMargin/Score/CenterContainer/HSplitContainer/NumStrokes.text = String(strokes)
+	self.set_strokes(strokes + 1)
 	self.last_settled_y = $Ball.global_transform.origin.y
 	has_worsened_this_stroke = false
 
 func reset():
 	self.translation.x = 0.0
 	self.translation.y = 40.0
-	self.strokes = 0
-	$HUD/HBox/Flex/VBox/PanelMargin/Score/CenterContainer/HSplitContainer/NumStrokes.text = String(strokes)
+	self.set_strokes(0)
 
 func is_on_moving_floor():
 	var is_in_contact = $Ball.contacts_reported > 0
@@ -59,15 +89,15 @@ func handle_collide(body: Node):
 	if body.has_method("on_collide"):
 		body.on_collide()
 	if is_still():
-
+		save_game()
 		if $Ball.global_transform.origin.y > self.last_settled_y:
 			$Audio/BingoHappy.play()
-		else:
+		elif $Ball.global_transform.origin.y < self.last_settled_y:
 			$Audio/BingoSad.play()
 
 func handle_win(body: Node):
 	if body == $Ball:
-		var win_card_node = get_node("/root/Root/WinCard")
+		var win_card_node = get_node("/root/Root/Game/WinCard")
 		win_card_node.visible = true
 		win_card_node.get_node("Retry").visible = true
 		if strokes > 1:
@@ -75,11 +105,14 @@ func handle_win(body: Node):
 		elif strokes == 1:
 			win_card_node.get_node("HoleIn1").visible = true
 		win_card_node.get_node("Particles").emitting = true
+		if strokes < best_score:
+			set_best_score(strokes)
+		save_game()
 
 func _ready():
 	$PreviewArrow.visible = false
 	$Ball.connect("body_entered", self, "handle_collide")
-	get_node("/root/Root/Level/Goal").connect("body_entered", self, "handle_win")
+	get_node("/root/Root/Game/Level/Goal").connect("body_entered", self, "handle_win")
 	self.last_settled_y = $Ball.global_transform.origin.y
 
 func _input(event):
@@ -95,6 +128,11 @@ func _input(event):
 			mouse_position_1 = null
 			mouse_position_2 = null
 			$PreviewArrow.visible = false
+
+		if event.is_action_pressed("exit"):
+			self.save_game()
+			get_node("/root/Root/Menu").visible = true
+			get_node("/root/Root").remove_child(get_node("/root/Root/Game"))
 
 func _process(delta):
 	if mouse_position_1 != null:
