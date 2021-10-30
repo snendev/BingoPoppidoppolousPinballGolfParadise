@@ -7,7 +7,6 @@ func _ready():
 			"pressed", self, "new_game")
 
 func load_or_create_game():
-	print("hello!")
 	var game_scene = load("res://Game.tscn")
 	var instance = game_scene.instance()
 	instance.get_node("Player").load_game()

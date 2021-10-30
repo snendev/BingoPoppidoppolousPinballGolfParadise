@@ -31,8 +31,10 @@ func load_game():
 	load_file.open("user://savegame.save", File.READ)
 	var node_data = parse_json(load_file.get_line())
 	self.reset()
-	self.set_strokes(node_data["strokes"])
-	self.set_best_score(node_data["best_score"])
+	if (node_data["strokes"] != null):
+		self.set_strokes(node_data["strokes"])
+	if (node_data["best_score"] != null):
+		self.set_best_score(node_data["best_score"])
 	$Ball.translation.x = node_data["x"]
 	$Ball.translation.y = node_data["y"]
 	load_file.close()
