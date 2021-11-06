@@ -45,7 +45,7 @@ script = ExtResource( 2 )
 transform = Transform( 0.399404, 0.0215632, -0.00339651, -0.0217963, 0.39054, -0.0836881, -0.00119528, 0.0837484, 0.391133, 0.2109, 1.50239, 0.20076 )
 
 [node name="Head" type="CSGSphere" parent="."]
-transform = Transform( 0.945519, 0, 0.325568, 0, 1, 0, -0.325568, 0, 0.945519, 0.0164828, 0.0054414, 0.000140071 )
+transform = Transform( 0.866026, 0, 0.5, 0, 1, 0, -0.5, 0, 0.866026, 0.0164828, 0.0054414, 0.000140071 )
 radial_segments = 5
 rings = 12
 material = ExtResource( 1 )
