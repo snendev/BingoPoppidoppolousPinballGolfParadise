@@ -12,8 +12,8 @@ config_version=4
 
 config/name="Bingo Poppidoppolous' Pinball-Golf Paradise"
 run/main_scene="res://Root.tscn"
-config/icon="res://bingo2.PNG"
-config/windows_native_icon="res://bingo-icon.ico"
+config/icon="res://icon.ico"
+config/windows_native_icon="res://icon.ico"
 
 [global]
 
